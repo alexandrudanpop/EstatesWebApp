@@ -5,6 +5,7 @@ import Spinner from 'react-spinkit'
 import { api } from '../api.js'
 
 import EstateList from './estate-list'
+import EstateFilters from './estate-filters'
 
 const endpoint = api + '/api/estates'
 
@@ -121,15 +122,42 @@ export default class App extends React.Component {
         })
     }
 
+    search(searchItems) {
+        if (searchItems.name) {
+            const searchEndpoint = endpoint + '/' + searchItems.name;
+            axios.get(searchEndpoint)
+                .then((response) => {
+                    this.setState({ estates: response.data })
+                })
+                .catch((error) => {
+                    this.setState({
+                        errors: error.response.status === 404
+                            ? 'Can not find ' + searchItems.name
+                            : error.response.statusText
+                    })
+                })
+        }
+    }
+
+    removeFilters() {
+        this.getEstates()
+    }
+
     componentDidMount() {
+        this.getEstates()
+    }
+
+    getEstates() {
         axios.get(endpoint)
             .then((response) => {
                 this.setState({ estates: response.data })
             })
             .catch((error) => {
-                this.setState({ errors: error.response.status === 404 
-                    ? "There are no estates in the DB yet. Add some ;-)" 
-                    : error.response.statusText })
+                this.setState({
+                    errors: error.response.status === 404
+                        ? "There are no estates in the DB yet. Add some ;-)"
+                        : error.response.statusText
+                })
             })
     }
 
@@ -141,13 +169,17 @@ export default class App extends React.Component {
                 {// todo extract new comp - CreateNewEstate
                     this.state.createNewEnabled ? <button onClick={this.onAddNewClick.bind(this)}> Add new </button>
                         : <div>
-                            <label> Name </label> <input className={styles['createNewInput']} type="text" ref="newItemName" autoFocus />
-                            <label> Price </label> <input className={styles['createNewInput']} type="text" ref="newItemPrice" />
+                            <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
+                            <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
                             <span> </span>
                             <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
                             <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
                         </div>
                 }
+                <EstateFilters
+                    search={this.search.bind(this)}
+                    removeFilters={this.removeFilters.bind(this)}
+                    />
                 <div className={styles["error"]}>
                     {this.state.errors}
                 </div>
