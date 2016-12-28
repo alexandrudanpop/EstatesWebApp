@@ -1,0 +1,76 @@
+/* Style for tables */
+.tableContainer{
+    width: 50%;
+}
+
+@media screen and (max-width: 800px){
+    .tableContainer{
+        width: 100%;
+    }
+}
+
+table {
+    border-collapse: collapse;
+    width: 100%;
+    table-layout:fixed;
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #6be0ab;
+    color: black;
+}
+
+/* Style for inputs */
+input[type=text], select {
+    width: 100%;
+    padding: 6px 10px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.createNewInput {
+    width: auto!important;
+}
+
+/* Style for buttons */
+button {
+    background-color: #6be0ab;
+    border: none;
+    color: black;
+    padding: 4px 10px;
+    margin: 2px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.editButton {
+    background-color: #e8f265;
+}
+
+.deleteButton {
+    background-color: #ff9f82;
+}
+
+.cancelButton {
+    background-color: #f2e6e6;
+}
+
+/* Validation error text */
+.error{
+    color: red;
+    padding: 0.1em;
+}
