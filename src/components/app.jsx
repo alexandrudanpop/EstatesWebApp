@@ -123,6 +123,7 @@ export default class App extends React.Component {
     }
 
     search(searchItems) {
+        this.setState({errors : null})
         if (searchItems.name) {
             const searchEndpoint = endpoint + '/' + searchItems.name;
             axios.get(searchEndpoint)
@@ -141,6 +142,7 @@ export default class App extends React.Component {
 
     removeFilters() {
         this.getEstates()
+        this.setState({errors : null})
     }
 
     componentDidMount() {
