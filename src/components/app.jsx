@@ -7,223 +7,222 @@ import { api } from '../api.js'
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 
-
 const endpoint = api + '/api/estates'
 
 export default class App extends React.Component {
-    constructor(props) {
-        super(props)
+  constructor(props) {
+    super(props)
 
-        this.state = {
-            estates: [],
-            createNewEnabled: true,
-            errors: null
-        }
+    this.state = {
+      estates: [],
+      createNewEnabled: true,
+      errors: null
+    }
+  }
+
+  validateEstate(estate) {
+    if (!estate || !estate.name) {
+      return "Name is required"
     }
 
-    validateEstate(estate) {
-        if (!estate || !estate.name) {
-            return "Name is required"
-        }
-
-        if (!estate || !estate.price) {
-            return "Price is required"
-        }
-
-        if (!estate || isNaN(estate.price)) {
-            return "Price must be a number"
-        }
+    if (!estate || !estate.price) {
+      return "Price is required"
     }
 
-    // todo refactor data access code to separate file
-    editEstate(estate) {
-        const validationErrors = this.validateEstate(estate);
+    if (!estate || isNaN(estate.price)) {
+      return "Price must be a number"
+    }
+  }
 
-        if (validationErrors) {
-            this.setState({ errors: validationErrors })
-            return;
+  // todo refactor data access code to separate file
+  editEstate(estate) {
+    const validationErrors = this.validateEstate(estate);
+
+    if (validationErrors) {
+      this.setState({ errors: validationErrors })
+      return;
+    }
+
+    this.setState({ errors: null })
+
+    const foundEstate = this.state.estates.filter(function (e) {
+      return e.id == estate.id
+    })
+
+    const editedEstate = {
+      id: foundEstate[0].id,
+      name: estate.name,
+      price: estate.price
+    }
+
+    axios.put(endpoint, editedEstate)
+      .then((response) => {
+        console.log(response)
+        foundEstate[0].name = estate.name
+        foundEstate[0].price = estate.price
+
+        this.setState({ estates: this.state.estates })
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const serverErrors = error.response.data.join(' and ')
+          this.setState({ errors: serverErrors })
+        } else if (error.message) {
+          this.setState({ errors: error.message })
         }
+      })
 
-        this.setState({ errors: null })
+    return true;
+  }
 
-        const foundEstate = this.state.estates.filter(function (e) {
-            return e.id == estate.id
-        })
+  deleteEstate(id) {
+    const newEstates = this.state.estates.filter(function (estate) {
+      return estate.id != id
+    })
 
-        const editedEstate = {
-            id: foundEstate[0].id,
-            name: estate.name,
-            price: estate.price
+    const deleteEndpoint = endpoint + '/' + id.toString()
+    axios.delete(deleteEndpoint, id)
+      .then((response) => {
+        console.log(response)
+        this.setState({ estates: newEstates })
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const serverErrors = error.response.data.join(' and ')
+          this.setState({ errors: serverErrors })
+        } else if (error.message) {
+          this.setState({ errors: error.message })
         }
+      })
+  }
 
-        axios.put(endpoint, editedEstate)
-            .then((response) => {
-                console.log(response)
-                foundEstate[0].name = estate.name
-                foundEstate[0].price = estate.price
+  cancel() {
+    this.setState({ errors: null })
+  }
 
-                this.setState({ estates: this.state.estates })
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    const serverErrors = error.response.data.join(' and ')
-                    this.setState({ errors: serverErrors })
-                } else if (error.message) {
-                    this.setState({ errors: error.message })
-                }
-            })
+  onAddNewClick() {
+    this.setState({ createNewEnabled: false })
+  }
 
-        return true;
+  onSaveNewClick() {
+    var newEstate = {
+      name: this.refs.newItemName.value,
+      price: this.refs.newItemPrice.value
     }
 
-    deleteEstate(id) {
-        const newEstates = this.state.estates.filter(function (estate) {
-            return estate.id != id
-        })
-
-        const deleteEndpoint = endpoint + '/' + id.toString()
-        axios.delete(deleteEndpoint, id)
-            .then((response) => {
-                console.log(response)
-                this.setState({ estates: newEstates })
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    const serverErrors = error.response.data.join(' and ')
-                    this.setState({ errors: serverErrors })
-                } else if (error.message) {
-                    this.setState({ errors: error.message })
-                }
-            })
+    const validationErrors = this.validateEstate(newEstate);
+    if (validationErrors) {
+      this.setState({ errors: validationErrors })
+      return;
     }
 
-    cancel() {
-        this.setState({ errors: null })
-    }
+    axios.post(endpoint, newEstate)
+      .then((response) => {
+        console.log(response)
+        newEstate.id = response.data;
 
-    onAddNewClick() {
-        this.setState({ createNewEnabled: false })
-    }
-
-    onSaveNewClick() {
-        var newEstate = {
-            name: this.refs.newItemName.value,
-            price: this.refs.newItemPrice.value
-        }
-
-        const validationErrors = this.validateEstate(newEstate);
-        if (validationErrors) {
-            this.setState({ errors: validationErrors })
-            return;
-        }
-
-        axios.post(endpoint, newEstate)
-            .then((response) => {
-                console.log(response)
-                newEstate.id = response.data;
-
-                this.state.estates.push(newEstate)
-                var newEstates = this.state.estates
-                this.setState({
-                    estates: newEstates,
-                    createNewEnabled: true,
-                    errors: null
-                })
-            })
-            .catch((error) => {
-                if (error.response && error.response.data) {
-                    const serverErrors = error.response.data.join(' and ')
-                    this.setState({ errors: serverErrors })
-                } else if (error.message) {
-                    this.setState({ errors: error.message })
-                }
-            })
-    }
-
-    onCancelClick() {
+        this.state.estates.push(newEstate)
+        var newEstates = this.state.estates
         this.setState({
-            createNewEnabled: true,
-            errors: null
+          estates: newEstates,
+          createNewEnabled: true,
+          errors: null
+        })
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          const serverErrors = error.response.data.join(' and ')
+          this.setState({ errors: serverErrors })
+        } else if (error.message) {
+          this.setState({ errors: error.message })
+        }
+      })
+  }
+
+  onCancelClick() {
+    this.setState({
+      createNewEnabled: true,
+      errors: null
+    })
+  }
+
+  search(searchItems) {
+    this.setState({ errors: null })
+    if (searchItems.name) {
+      const searchEndpoint = endpoint + '/' + searchItems.name;
+      axios.get(searchEndpoint)
+        .then((response) => {
+          this.setState({ estates: response.data })
+        })
+        .catch((error) => {
+          this.setState({
+            errors: error.response.status === 404
+              ? 'Can not find ' + searchItems.name
+              : error.response.statusText
+          })
         })
     }
+  }
 
-    search(searchItems) {
-        this.setState({ errors: null })
-        if (searchItems.name) {
-            const searchEndpoint = endpoint + '/' + searchItems.name;
-            axios.get(searchEndpoint)
-                .then((response) => {
-                    this.setState({ estates: response.data })
-                })
-                .catch((error) => {
-                    this.setState({
-                        errors: error.response.status === 404
-                            ? 'Can not find ' + searchItems.name
-                            : error.response.statusText
-                    })
-                })
+  removeFilters() {
+    this.getEstates()
+    this.setState({ errors: null })
+  }
+
+  componentDidMount() {
+    this.getEstates()
+  }
+
+  getEstates() {
+    axios.get(endpoint)
+      .then((response) => {
+        this.setState({ estates: response.data })
+      })
+      .catch((error) => {
+        if (error.message) {
+          this.setState({ errors: error.message })
         }
-    }
+        else {
+          this.setState({
+            errors: error.response.status === 404
+              ? "There are no estates in the DB yet. Add some ;-)"
+              : error.response.statusText
 
-    removeFilters() {
-        this.getEstates()
-        this.setState({ errors: null })
-    }
+          })
+        }
+      })
+  }
 
-    componentDidMount() {
-        this.getEstates()
-    }
-
-    getEstates() {
-        axios.get(endpoint)
-            .then((response) => {
-                this.setState({ estates: response.data })
-            })
-            .catch((error) => {
-                if (error.message) {
-                    this.setState({ errors: error.message })
-                }
-                else {
-                    this.setState({
-                        errors: error.response.status === 404
-                            ? "There are no estates in the DB yet. Add some ;-)"
-                            : error.response.statusText
-
-                    })
-                }
-            })
-    }
-
-    render() {
-        return (
-            <div>
-                <h2> Estates </h2>
-                {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
-                {// todo extract new comp - CreateNewEstate
-                    this.state.createNewEnabled ? <button onClick={this.onAddNewClick.bind(this)}> Add new </button>
-                        : <div>
-                            <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
-                            <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
-                            <span> </span>
-                            <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
-                            <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
-                        </div>
-                }
-                <EstateFilters
-                    search={this.search.bind(this)}
-                    removeFilters={this.removeFilters.bind(this)}
-                    />
-
-                <div className={styles["error"]}>
-                    {this.state.errors}
-                </div>
-                <EstateList
-                    estates={this.state.estates}
-                    deleteEstate={this.deleteEstate.bind(this)}
-                    editEstate={this.editEstate.bind(this)}
-                    cancel={this.cancel.bind(this)}
-                    />
+  render() {
+    return (
+      <div>
+        <h2> Estates </h2>
+        {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
+        {// todo extract new comp - CreateNewEstate
+          this.state.createNewEnabled ? <button onClick={this.onAddNewClick.bind(this)}> Add new </button>
+            : <div>
+              <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
+              <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
+              <span> </span>
+              <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
+              <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
             </div>
-        )
-    }
+        }
+        <EstateFilters
+          search={this.search.bind(this)}
+          removeFilters={this.removeFilters.bind(this)}
+          />
+
+        <div className={styles["error"]}>
+          {this.state.errors}
+        </div>
+        <EstateList
+          estates={this.state.estates}
+          deleteEstate={this.deleteEstate.bind(this)}
+          editEstate={this.editEstate.bind(this)}
+          cancel={this.cancel.bind(this)}
+          />
+      </div>
+    )
+  }
 }
