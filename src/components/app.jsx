@@ -7,6 +7,7 @@ import { api } from '../api.js'
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 
+
 const endpoint = api + '/api/estates'
 
 export default class App extends React.Component {
@@ -34,6 +35,7 @@ export default class App extends React.Component {
         }
     }
 
+    // todo refactor data access code to separate file
     editEstate(estate) {
         const validationErrors = this.validateEstate(estate);
 
@@ -48,15 +50,27 @@ export default class App extends React.Component {
             return e.id == estate.id
         })
 
-        foundEstate[0].name = estate.name
-        foundEstate[0].price = estate.price
+        const editedEstate = {
+            id: foundEstate[0].id,
+            name: estate.name,
+            price: estate.price
+        }
 
-        this.setState({ estates: this.state.estates })
+        axios.put(endpoint, editedEstate)
+            .then((response) => {
+                console.log(response)
+                foundEstate[0].name = estate.name
+                foundEstate[0].price = estate.price
 
-        axios.put(endpoint, foundEstate[0])
-            .then((response) => console.log(response))
+                this.setState({ estates: this.state.estates })
+            })
             .catch((error) => {
-                this.setState({ errors: error })
+                if (error.response && error.response.data) {
+                    const serverErrors = error.response.data.join(' and ')
+                    this.setState({ errors: serverErrors })
+                } else if (error.message) {
+                    this.setState({ errors: error.message })
+                }
             })
 
         return true;
@@ -67,13 +81,19 @@ export default class App extends React.Component {
             return estate.id != id
         })
 
-        this.setState({ estates: newEstates })
-
         const deleteEndpoint = endpoint + '/' + id.toString()
         axios.delete(deleteEndpoint, id)
-            .then((response) => console.log(response))
+            .then((response) => {
+                console.log(response)
+                this.setState({ estates: newEstates })
+            })
             .catch((error) => {
-                this.setState({ errors: error.response.statusText })
+                if (error.response && error.response.data) {
+                    const serverErrors = error.response.data.join(' and ')
+                    this.setState({ errors: serverErrors })
+                } else if (error.message) {
+                    this.setState({ errors: error.message })
+                }
             })
     }
 
@@ -111,7 +131,12 @@ export default class App extends React.Component {
                 })
             })
             .catch((error) => {
-                this.setState({ errors: error.response.statusText })
+                if (error.response && error.response.data) {
+                    const serverErrors = error.response.data.join(' and ')
+                    this.setState({ errors: serverErrors })
+                } else if (error.message) {
+                    this.setState({ errors: error.message })
+                }
             })
     }
 
@@ -123,7 +148,7 @@ export default class App extends React.Component {
     }
 
     search(searchItems) {
-        this.setState({errors : null})
+        this.setState({ errors: null })
         if (searchItems.name) {
             const searchEndpoint = endpoint + '/' + searchItems.name;
             axios.get(searchEndpoint)
@@ -142,7 +167,7 @@ export default class App extends React.Component {
 
     removeFilters() {
         this.getEstates()
-        this.setState({errors : null})
+        this.setState({ errors: null })
     }
 
     componentDidMount() {
@@ -155,11 +180,17 @@ export default class App extends React.Component {
                 this.setState({ estates: response.data })
             })
             .catch((error) => {
-                this.setState({
-                    errors: error.response.status === 404
-                        ? "There are no estates in the DB yet. Add some ;-)"
-                        : error.response.statusText
-                })
+                if (error.message) {
+                    this.setState({ errors: error.message })
+                }
+                else {
+                    this.setState({
+                        errors: error.response.status === 404
+                            ? "There are no estates in the DB yet. Add some ;-)"
+                            : error.response.statusText
+
+                    })
+                }
             })
     }
 
@@ -182,6 +213,7 @@ export default class App extends React.Component {
                     search={this.search.bind(this)}
                     removeFilters={this.removeFilters.bind(this)}
                     />
+
                 <div className={styles["error"]}>
                     {this.state.errors}
                 </div>
