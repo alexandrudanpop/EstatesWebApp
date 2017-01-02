@@ -196,6 +196,7 @@ export default class App extends React.Component {
   }
 
   showImages(id) {
+    //  this.setState({ selectedEstateId: id })
     this.setState({ showImagesModal: true })
   }
 

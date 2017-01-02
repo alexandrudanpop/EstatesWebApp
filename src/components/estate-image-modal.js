@@ -2,10 +2,22 @@ import styles from './modalStyles.scss'
 import React from 'react'
 
 export default class EstateImageModal extends React.Component {
+  onImageSelectionChange() {
+    var file = this.refs.fileInput.files[0];
+
+    let reader = new FileReader();
+    reader.onloadend = () => {
+      this.refs.imageContainer.src = reader.result
+    }
+    if (file) {
+      reader.readAsDataURL(file);
+    }
+  }
+
   closeModal() {
     let modal = this.refs.myModal
     modal.style.display = 'none'
-    
+
     this.props.hideImages()
   }
 
@@ -18,7 +30,10 @@ export default class EstateImageModal extends React.Component {
       <div style={showModalStyle} className={styles['modal']} ref='myModal'>
         <div className={styles['modal-content']}>
           <span ref='closeButton' onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
-          <p> Images! </p>
+          <h3> Add some images </h3>
+
+          <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this)} />
+          <img className={styles['uploadedImage']} ref='imageContainer' />
         </div>
       </div>
     )

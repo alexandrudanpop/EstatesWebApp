@@ -10,7 +10,6 @@ class EstateListItem extends Component {
     }
   }
 
-  /* Buttons event handlers */
   onEditClick() {
     this.setState({ isEditing: true })
   }
@@ -42,7 +41,6 @@ class EstateListItem extends Component {
     this.props.showImages(id)
   }
 
-  /* Rendering */
   renderName() {
     if (this.state.isEditing) {
       return (

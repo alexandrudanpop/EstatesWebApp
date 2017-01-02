@@ -18,7 +18,7 @@
     position: relative;
     background-color: #fefefe;
     margin: auto;
-    padding: 0;
+    padding: 20px;
     border: 1px solid #888;
     width: 80%;
     box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
@@ -27,6 +27,7 @@
     animation-name: animatetop;
     animation-duration: 0.4s
 }
+
 /* Add Animation */
 @-webkit-keyframes animatetop {
     from {top:-300px; opacity:0} 
@@ -51,4 +52,20 @@
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+.inputfile {
+    max-width: 100%;
+    font-size: 1.00em;
+    color: white;
+    display: inline-block;
+    background-color: #6be0ab;
+}
+
+.uploadedImage {
+    max-width: 90%;
+    height: auto;
+    width: auto;
+    padding: 20px;
+    display:block;
 }
