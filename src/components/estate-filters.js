@@ -36,8 +36,8 @@ export default class EstateFilters extends React.Component {
         ?
         <div>
           Name
-                    <input className={styles['autoSizedInput']} type="text" ref="nameInput" onChange={this.onSearchClick.bind(this)} />
-          <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
+          <input className={styles['autoSizedInput']} type="text" ref="nameInput" onChange={this.onSearchClick.bind(this)} />
+          <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
         </div>
         :
         <div>

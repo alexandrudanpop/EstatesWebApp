@@ -6,6 +6,7 @@ import { api } from '../api.js'
 
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
+import EstateImageModal from './estate-image-modal'
 
 const endpoint = api + '/api/estates'
 
@@ -16,6 +17,7 @@ export default class App extends React.Component {
     this.state = {
       estates: [],
       createNewEnabled: true,
+      showImagesModal: false,
       errors: null
     }
   }
@@ -193,9 +195,19 @@ export default class App extends React.Component {
       })
   }
 
+  showImages(id) {
+    this.setState({ showImagesModal: true })
+  }
+
+  hideImages() {
+    this.setState({ showImagesModal: false })
+  }
+
   render() {
     return (
       <div>
+        {this.state.showImagesModal ? <EstateImageModal hideImages={this.hideImages.bind(this)} /> : null}
+
         <h2> Estates </h2>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
         {// todo extract new comp - CreateNewEstate
@@ -205,7 +217,7 @@ export default class App extends React.Component {
               <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
               <span> </span>
               <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
-              <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
+              <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
             </div>
         }
         <EstateFilters
@@ -221,6 +233,7 @@ export default class App extends React.Component {
           deleteEstate={this.deleteEstate.bind(this)}
           editEstate={this.editEstate.bind(this)}
           cancel={this.cancel.bind(this)}
+          showImages={this.showImages.bind(this)}
           />
       </div>
     )

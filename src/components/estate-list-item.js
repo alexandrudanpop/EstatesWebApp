@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-
 import styles from './index.scss'
 
 class EstateListItem extends Component {
@@ -18,11 +17,11 @@ class EstateListItem extends Component {
 
   onCancelClick() {
     this.setState({ isEditing: false })
-    this.props.cancel();
+    this.props.cancel()
   }
 
   onDeleteClick() {
-    const id = this.props.estate.id;
+    const id = this.props.estate.id
     this.props.deleteEstate(id)
   }
 
@@ -36,6 +35,11 @@ class EstateListItem extends Component {
     if (editWithoutErrors) {
       this.setState({ isEditing: false })
     }
+  }
+
+  onAddImagesClick() {
+    const id = this.props.estate.id
+    this.props.showImages(id)
   }
 
   /* Rendering */
@@ -68,7 +72,7 @@ class EstateListItem extends Component {
       return (
         <td>
           <button onClick={this.onSaveClick.bind(this)}> Save </button>
-          <button className={styles['cancelButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
+          <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
         </td>
       )
     }
@@ -77,6 +81,7 @@ class EstateListItem extends Component {
       <td>
         <button className={styles['editButton']} onClick={this.onEditClick.bind(this)}> Edit </button>
         <button className={styles['deleteButton']} onClick={this.onDeleteClick.bind(this)}> Delete </button>
+        <button className={styles['defaultButton']} onClick={this.onAddImagesClick.bind(this)}> Add images </button>
       </td>
     )
   }
