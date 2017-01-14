@@ -204,10 +204,34 @@ export default class App extends React.Component {
     this.setState({ showImagesModal: false })
   }
 
+  saveImage(image) {
+    if (image) {
+      const endpoint = api + '/api/images'
+      let file = new FormData();
+      file.append('image', image)
+
+      axios.post(endpoint, file)
+        .catch((error) => {
+          if (error.message) {
+            // todo - set to more user friendly message
+            this.setState({ errors: error.message })
+          }
+        })
+    }
+
+    this.hideImages()
+  }
+
   render() {
     return (
       <div>
-        {this.state.showImagesModal ? <EstateImageModal hideImages={this.hideImages.bind(this)} /> : null}
+        {
+          this.state.showImagesModal ?
+            <EstateImageModal
+              hideImages={this.hideImages.bind(this)}
+              saveImage={this.saveImage.bind(this)}
+              /> : null
+        }
 
         <h2> Estates </h2>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}

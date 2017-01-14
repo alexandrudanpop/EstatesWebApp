@@ -2,15 +2,24 @@ import styles from './modalStyles.scss'
 import React from 'react'
 
 export default class EstateImageModal extends React.Component {
-  onImageSelectionChange() {
-    var file = this.refs.fileInput.files[0];
+  constructor(props){
+    super(props)
 
-    let reader = new FileReader();
+    this.state = {
+      image: null
+    }
+  }
+  
+  onImageSelectionChange() {
+    var file = this.refs.fileInput.files[0]
+
+    let reader = new FileReader()
     reader.onloadend = () => {
       this.refs.imageContainer.src = reader.result
+      this.setState({image : file})
     }
     if (file) {
-      reader.readAsDataURL(file);
+      reader.readAsDataURL(file)
     }
   }
 
@@ -31,7 +40,7 @@ export default class EstateImageModal extends React.Component {
         <div className={styles['modal-content']}>
           <span ref='closeButton' onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
           <h3> Add some images </h3>
-
+          <button onClick={this.props.saveImage.bind(this, this.state.image)}> Save </button>
           <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this)} />
           <img className={styles['uploadedImage']} ref='imageContainer' />
         </div>
