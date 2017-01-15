@@ -207,13 +207,15 @@ export default class App extends React.Component {
   saveImage(image, estateId) {
     if (image) {
       const endpoint = api + '/api/images'
-      let file = new FormData();
 
+      let file = new FormData();
       file.append(estateId, image)
 
       axios.post(endpoint, file)
         .catch((error) => {
-          if (error.message) {
+          if (error.response && error.response.data){
+            this.setState({ errors: error.response.data })
+          } else if (error.message) {
             // todo - set to more user friendly message
             this.setState({ errors: error.message })
           }
