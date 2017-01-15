@@ -6,3 +6,6 @@ You will need the backend api written in dotnet core from https://github.com/ale
 
 # Live app
 http://www.control-f5.com/react/index.html
+
+# Trello
+https://trello.com/b/Ncm83wVa/estates-web-app-todos
