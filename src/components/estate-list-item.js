@@ -91,6 +91,10 @@ class EstateListItem extends Component {
         {this.renderName()}
         {this.renderPrice()}
         {this.renderActionSection()}
+
+        <td>
+         {this.props.estate.images ? this.props.estate.images.map(image => { return <img key={image.id} className={styles['estateImage']} src={'http://'+ image.link} />}) : null }
+         </td>
       </tr>
     )
   }

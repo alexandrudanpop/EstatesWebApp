@@ -216,7 +216,6 @@ export default class App extends React.Component {
           if (error.response && error.response.data){
             this.setState({ errors: error.response.data })
           } else if (error.message) {
-            // todo - set to more user friendly message
             this.setState({ errors: error.message })
           }
         })
