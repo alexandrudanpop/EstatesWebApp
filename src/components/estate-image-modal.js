@@ -2,21 +2,22 @@ import styles from './modalStyles.scss'
 import React from 'react'
 
 export default class EstateImageModal extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props)
 
     this.state = {
-      image: null
+      image: null,
+      estateId: null
     }
   }
-  
-  onImageSelectionChange() {
+
+  onImageSelectionChange(estateId) {
     var file = this.refs.fileInput.files[0]
 
     let reader = new FileReader()
     reader.onloadend = () => {
       this.refs.imageContainer.src = reader.result
-      this.setState({image : file})
+      this.setState({ image: file, estateId: estateId })
     }
     if (file) {
       reader.readAsDataURL(file)
@@ -24,7 +25,7 @@ export default class EstateImageModal extends React.Component {
   }
 
   closeModal() {
-    let modal = this.refs.myModal
+    let modal = this.refs.imageModal
     modal.style.display = 'none'
 
     this.props.hideImages()
@@ -35,13 +36,12 @@ export default class EstateImageModal extends React.Component {
       display: 'block'
     }
     return (
-      /*  ref or id should be the estateModal + id of the estate */
-      <div style={showModalStyle} className={styles['modal']} ref='myModal'>
+      <div style={showModalStyle} className={styles['modal']} ref='imageModal'>
         <div className={styles['modal-content']}>
           <span ref='closeButton' onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
           <h3> Add some images </h3>
-          <button onClick={this.props.saveImage.bind(this, this.state.image)}> Save </button>
-          <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this)} />
+          <button onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </button>
+          <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this, this.props.estateId)} />
           <img className={styles['uploadedImage']} ref='imageContainer' />
         </div>
       </div>

@@ -18,6 +18,7 @@ export default class App extends React.Component {
       estates: [],
       createNewEnabled: true,
       showImagesModal: false,
+      selectedEstateId: null,
       errors: null
     }
   }
@@ -196,19 +197,19 @@ export default class App extends React.Component {
   }
 
   showImages(id) {
-    //  this.setState({ selectedEstateId: id })
-    this.setState({ showImagesModal: true })
+    this.setState({ showImagesModal: true, selectedEstateId: id })
   }
 
   hideImages() {
     this.setState({ showImagesModal: false })
   }
 
-  saveImage(image) {
+  saveImage(image, estateId) {
     if (image) {
       const endpoint = api + '/api/images'
       let file = new FormData();
-      file.append('image', image)
+
+      file.append(estateId, image)
 
       axios.post(endpoint, file)
         .catch((error) => {
@@ -230,6 +231,7 @@ export default class App extends React.Component {
             <EstateImageModal
               hideImages={this.hideImages.bind(this)}
               saveImage={this.saveImage.bind(this)}
+              estateId={this.state.selectedEstateId}
               /> : null
         }
 
