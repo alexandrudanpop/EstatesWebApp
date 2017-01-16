@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-import Slider from 'react-slick'
+import EstateImageSlider from './estate-image-slider'
 
 class EstateListItem extends Component {
   constructor(props) {
@@ -8,15 +8,6 @@ class EstateListItem extends Component {
 
     this.state = {
       isEditing: false,
-      sliderSetting: {
-        infinite: false,
-        speed: 500,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false
-      }
     }
   }
 
@@ -101,17 +92,7 @@ class EstateListItem extends Component {
         {this.renderName()}
         {this.renderPrice()}
         {this.renderActionSection()}
-
-        <td>
-          {
-            this.props.estate.images
-            ?
-            <Slider {...this.state.sliderSetting}>
-              {this.props.estate.images.map(image => { return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} /> })}
-            </Slider>
-            : null
-          }
-        </td>
+        {this.props.estate.images ? <EstateImageSlider images={this.props.estate.images} /> : null} 
       </tr>
     )
   }
