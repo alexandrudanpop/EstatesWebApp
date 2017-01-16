@@ -21,7 +21,7 @@ export default class EstateImageSlider extends Component {
 
   render() {
     if (!this.props.images || this.props.images.length == 0) {
-      return null
+      return (<td>  </td>)
     }
 
     return (
