@@ -62,7 +62,7 @@ export default class EstateImageModal extends React.Component {
           <div className={commonStyles["error"]}>
             {this.state.error}
           </div>
-          <button onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </button>
+          {this.state.image && !this.state.error ? <button onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </button> : null}
           <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this, this.props.estateId)} />
           <img className={styles['uploadedImage']} ref='imageContainer' />
         </div>
