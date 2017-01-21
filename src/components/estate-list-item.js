@@ -92,7 +92,7 @@ class EstateListItem extends Component {
         {this.renderName()}
         {this.renderPrice()}
         {this.renderActionSection()}
-        {this.props.estate.images ? <EstateImageSlider images={this.props.estate.images} /> : null} 
+        {this.props.estate.images ? <EstateImageSlider images={this.props.estate.images} /> : <td>  </td>} 
       </tr>
     )
   }

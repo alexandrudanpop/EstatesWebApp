@@ -110,7 +110,8 @@ export default class App extends React.Component {
   onSaveNewClick() {
     var newEstate = {
       name: this.refs.newItemName.value,
-      price: this.refs.newItemPrice.value
+      price: this.refs.newItemPrice.value,
+      images: []
     }
 
     const validationErrors = this.validateEstate(newEstate);
@@ -212,8 +213,21 @@ export default class App extends React.Component {
       file.append(estateId, image)
 
       axios.post(endpoint, file)
+        .then((response) => {
+          if (!response.data){ 
+            return 
+          }
+          var newEstates = this.state.estates.map((estate) => {
+            if (estate.id === estateId) {
+              estate.images.push(response.data)
+              return estate
+            }
+            return estate
+          })
+          this.setState({estates : newEstates});
+        })
         .catch((error) => {
-          if (error.response && error.response.data){
+          if (error.response && error.response.data) {
             this.setState({ errors: error.response.data })
           } else if (error.message) {
             this.setState({ errors: error.message })
