@@ -108,7 +108,7 @@ export default class App extends React.Component {
   }
 
   onSaveNewClick() {
-    var newEstate = {
+    let newEstate = {
       name: this.refs.newItemName.value,
       price: this.refs.newItemPrice.value,
       images: []
@@ -126,7 +126,7 @@ export default class App extends React.Component {
         newEstate.id = response.data;
 
         this.state.estates.push(newEstate)
-        var newEstates = this.state.estates
+        const newEstates = this.state.estates
         this.setState({
           estates: newEstates,
           createNewEnabled: true,
@@ -217,7 +217,7 @@ export default class App extends React.Component {
           if (!response.data){ 
             return 
           }
-          var newEstates = this.state.estates.map((estate) => {
+          const newEstates = this.state.estates.map((estate) => {
             if (estate.id === estateId) {
               estate.images.push(response.data)
               return estate
