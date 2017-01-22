@@ -20,6 +20,7 @@ class EstateList extends Component {
           editEstate={this.props.editEstate}
           cancel={this.props.cancel}
           showImages={this.props.showImages}
+          selectedEstateChanged={this.props.selectedEstateChanged}
           />
       )
     })
@@ -27,7 +28,7 @@ class EstateList extends Component {
 
   render() {
     return (
-      <table className={styles['tableContainer']}>
+      <table>
         <EstateHeader />
         <tbody>
           {this.renderItems()}

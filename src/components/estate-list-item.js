@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
-import EstateImageSlider from './estate-image-slider'
 
 class EstateListItem extends Component {
   constructor(props) {
@@ -87,12 +86,11 @@ class EstateListItem extends Component {
 
   render() {
     return (
-      <tr>
+      <tr onClick={this.props.selectedEstateChanged.bind(this, this.props.estate.id)}>
         <td> {this.props.estate.id} </td>
         {this.renderName()}
         {this.renderPrice()}
         {this.renderActionSection()}
-        {this.props.estate.images ? <EstateImageSlider images={this.props.estate.images} /> : <td>  </td>} 
       </tr>
     )
   }

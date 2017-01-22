@@ -7,6 +7,7 @@ import { api } from '../api.js'
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
+import EstateImageSlider from './estate-image-slider'
 
 const endpoint = api + '/api/estates'
 
@@ -19,6 +20,7 @@ export default class App extends React.Component {
       createNewEnabled: true,
       showImagesModal: false,
       selectedEstateId: null,
+      selectedEstate: null,
       errors: null
     }
   }
@@ -214,8 +216,8 @@ export default class App extends React.Component {
 
       axios.post(endpoint, file)
         .then((response) => {
-          if (!response.data){ 
-            return 
+          if (!response.data) {
+            return
           }
           const newEstates = this.state.estates.map((estate) => {
             if (estate.id === estateId) {
@@ -224,7 +226,7 @@ export default class App extends React.Component {
             }
             return estate
           })
-          this.setState({estates : newEstates});
+          this.setState({ estates: newEstates });
         })
         .catch((error) => {
           if (error.response && error.response.data) {
@@ -236,6 +238,13 @@ export default class App extends React.Component {
     }
 
     this.hideImages()
+  }
+
+  selectedEstateChanged(estateId) {
+    const selectedEstate = this.state.estates.filter( (e)  => {
+      return e.id == estateId
+    })
+    this.setState({ selectedEstate: selectedEstate[0] })
   }
 
   render() {
@@ -270,13 +279,27 @@ export default class App extends React.Component {
         <div className={styles["error"]}>
           {this.state.errors}
         </div>
-        <EstateList
-          estates={this.state.estates}
-          deleteEstate={this.deleteEstate.bind(this)}
-          editEstate={this.editEstate.bind(this)}
-          cancel={this.cancel.bind(this)}
-          showImages={this.showImages.bind(this)}
-          />
+
+        <div className={styles['estateList']}>
+          <EstateList
+            estates={this.state.estates}
+            deleteEstate={this.deleteEstate.bind(this)}
+            editEstate={this.editEstate.bind(this)}
+            cancel={this.cancel.bind(this)}
+            showImages={this.showImages.bind(this)}
+            selectedEstateChanged={this.selectedEstateChanged.bind(this)}
+            />
+        </div>
+
+        {this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
+          <div className={styles['imageCarousel']}>
+            {this.state.selectedEstate
+              ? <EstateImageSlider images={this.state.selectedEstate.images} />
+              : <EstateImageSlider images={this.state.estates[0].images} />
+            }
+          </div>
+          : null
+        }
       </div>
     )
   }

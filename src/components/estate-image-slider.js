@@ -8,30 +8,29 @@ export default class EstateImageSlider extends Component {
 
     this.state = {
       sliderSetting: {
-        infinite: false,
-        speed: 500,
-        slidesToShow: 2,
-        slidesToScroll: 1,
-        autoplay: true,
-        autoplaySpeed: 3000,
-        arrows: false
+        dots: true,
+        arrows: false,
+        infinite: true,
+        speed: 200,
+        fade: true,
+        cssEase: 'linear',
+        slidesToShow: 1,
+        slidesToScroll: 1
       }
     }
   }
 
   render() {
     if (!this.props.images || this.props.images.length == 0) {
-      return (<td>  </td>)
+      return (null)
     }
 
     return (
-      <td>
-        <Slider {...this.state.sliderSetting}>
-          {this.props.images.map(image => {
-            return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} />
-          })}
-        </Slider>
-      </td>
+      <Slider {...this.state.sliderSetting}>
+        {this.props.images.map(image => {
+          return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} />
+        })}
+      </Slider>
     )
   }
 }
