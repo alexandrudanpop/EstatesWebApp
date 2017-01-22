@@ -24,7 +24,7 @@ export default class EstateImageModal extends React.Component {
   }
 
   onImageSelectionChange(estateId) {
-    var file = this.refs.fileInput.files[0]
+    const file = this.refs.fileInput.files[0]
 
     if (!file || !this.isValidImage(file.name)) {
       this.setState({ error: "Provided file is not an image" })
