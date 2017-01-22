@@ -10,12 +10,13 @@ export default class EstateImageSlider extends Component {
       sliderSetting: {
         dots: true,
         arrows: false,
-        infinite: true,
+        // infinite: true,
         speed: 200,
         fade: true,
         cssEase: 'linear',
-        slidesToShow: 1,
-        slidesToScroll: 1
+        // slidesToShow: 1,
+        // slidesToScroll: 1,
+        centerMode: true,
       }
     }
   }

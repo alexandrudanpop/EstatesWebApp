@@ -241,7 +241,7 @@ export default class App extends React.Component {
   }
 
   selectedEstateChanged(estateId) {
-    const selectedEstate = this.state.estates.filter( (e)  => {
+    const selectedEstate = this.state.estates.filter((e) => {
       return e.id == estateId
     })
     this.setState({ selectedEstate: selectedEstate[0] })
@@ -280,6 +280,15 @@ export default class App extends React.Component {
           {this.state.errors}
         </div>
 
+        {parent.window.innerWidth  < 800 && this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
+          <div className={styles['imageCarousel']}>
+            {this.state.selectedEstate
+              ? <EstateImageSlider images={this.state.selectedEstate.images} />
+              : <EstateImageSlider images={this.state.estates[0].images} />
+            }
+          </div>
+          : null
+        }
         <div className={styles['estateList']}>
           <EstateList
             estates={this.state.estates}
@@ -290,8 +299,7 @@ export default class App extends React.Component {
             selectedEstateChanged={this.selectedEstateChanged.bind(this)}
             />
         </div>
-
-        {this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
+        {parent.window.innerWidth  > 800 && this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
           <div className={styles['imageCarousel']}>
             {this.state.selectedEstate
               ? <EstateImageSlider images={this.state.selectedEstate.images} />
@@ -300,6 +308,7 @@ export default class App extends React.Component {
           </div>
           : null
         }
+
       </div>
     )
   }

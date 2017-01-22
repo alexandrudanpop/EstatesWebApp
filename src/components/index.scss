@@ -1,9 +1,3 @@
-@media screen and (max-width: 800px){
-    .tableContainer{
-        width: 100%;
-    }
-}
-
 table {
     border-collapse: collapse;
     width: 100%;
@@ -33,9 +27,6 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-// .estatesContainer{
-//   margin: auto;
-// }
 
 .estateList {
     width: 60%;
@@ -50,8 +41,19 @@ input[type=text], select {
     margin-left:1%; 
     padding:2px;
     color: white;
-    // background: #f2f2f2;
 }
+
+@media screen and (max-width: 800px){
+    .estateList{
+        width: 100%;
+    }
+    
+    .imageCarousel {
+      width: 95%;
+      display:block;
+    }
+}
+
 
 .autoSizedInput {
     width: auto!important;
@@ -95,8 +97,4 @@ button {
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;
-}
-
-ul .slick-dots {
-  bottom: -3px!important;
 }
