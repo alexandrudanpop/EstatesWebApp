@@ -4,10 +4,9 @@ import axios from 'axios'
 import Spinner from 'react-spinkit'
 import { api } from '../api.js'
 
-import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
-import EstateImageSlider from './estate-image-slider'
+import EstatesContainer from './estates-container'
 
 const endpoint = api + '/api/estates'
 
@@ -276,39 +275,19 @@ export default class App extends React.Component {
           removeFilters={this.removeFilters.bind(this)}
           />
 
+        <EstatesContainer
+          estates={this.state.estates}
+          selectedEstate={this.state.selectedEstate}
+          deleteEstate={this.deleteEstate.bind(this)}
+          editEstate={this.editEstate.bind(this)}
+          cancel={this.cancel.bind(this)}
+          showImages={this.showImages.bind(this)}
+          selectedEstateChanged={this.selectedEstateChanged.bind(this)}
+          />
+
         <div className={styles["error"]}>
           {this.state.errors}
         </div>
-
-        {parent.window.innerWidth  < 800 && this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
-          <div className={styles['imageCarousel']}>
-            {this.state.selectedEstate
-              ? <EstateImageSlider images={this.state.selectedEstate.images} />
-              : <EstateImageSlider images={this.state.estates[0].images} />
-            }
-          </div>
-          : null
-        }
-        <div className={styles['estateList']}>
-          <EstateList
-            estates={this.state.estates}
-            deleteEstate={this.deleteEstate.bind(this)}
-            editEstate={this.editEstate.bind(this)}
-            cancel={this.cancel.bind(this)}
-            showImages={this.showImages.bind(this)}
-            selectedEstateChanged={this.selectedEstateChanged.bind(this)}
-            />
-        </div>
-        {parent.window.innerWidth  > 800 && this.state.estates[0] && this.state.estates[0].images.length !== 0 ?
-          <div className={styles['imageCarousel']}>
-            {this.state.selectedEstate
-              ? <EstateImageSlider images={this.state.selectedEstate.images} />
-              : <EstateImageSlider images={this.state.estates[0].images} />
-            }
-          </div>
-          : null
-        }
-
       </div>
     )
   }
