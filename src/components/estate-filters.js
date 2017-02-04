@@ -38,7 +38,10 @@ export default class EstateFilters extends React.Component {
         <div>
           <label> Name </label> {'\u00A0'}
           <input className={styles['autoSizedInput']} type='text' ref='nameInput' autoFocus onChange={this.onSearchClick.bind(this)} />{'\u00A0'}
-          <Button className={styles['bsButton']} onClick={this.onCancelClick.bind(this)}> Cancel </Button>
+          <Button className={styles['bsButton']} onClick={this.onCancelClick.bind(this)}>
+            <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
+            Cancel
+          </Button>
         </div>
         :
         <div>

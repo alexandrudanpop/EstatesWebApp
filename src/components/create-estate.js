@@ -18,27 +18,31 @@ export default class CreateEstate extends Component {
       <div>
         {
           this.props.createNewEnabled ?
-            <Button bsStyle='success' className={styles['autoSizedInput']} onClick={this.props.onAddNewClick}>
+            <Button bsStyle='success' className={styles['bsButtonMarginTop']} onClick={this.props.onAddNewClick}>
               <span className='glyphicon glyphicon-plus'></span>{'\u00A0'}
               Add new
             </Button>
-            : <div>
-              <label> Name </label>{'\u00A0'}
-              <input className={styles['autoSizedInput']} type='text' ref='newItemName' autoFocus /> {'\u00A0'}
-              <label> Price </label>{'\u00A0'}
-              <input className={styles['autoSizedInput']} type='text' ref='newItemPrice' />
-              <span> </span>
-              <ButtonGroup>
-                <Button bsStyle='success' className={styles['bsButton']} onClick={this.onSaveNewClick.bind(this)}>
-                  <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
-                  Save
+            : 
+              <form className="form-inline">
+                <div className="form-group">
+                  <label> Name </label>{'\u00A0'}
+                  <input className={styles['autoSizedInput']} type='text' ref='newItemName' autoFocus /> {'\u00A0'}
+                </div>
+                <div className="form-group">
+                  <label> Price </label>{'\u00A0'}
+                  <input className={styles['autoSizedInput']} type='text' ref='newItemPrice' />
+                </div>
+                <ButtonGroup>
+                  <Button bsStyle='success' className={styles['bsButton']} onClick={this.onSaveNewClick.bind(this)}>
+                    <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
+                    Save
                 </Button>
-                <Button className={styles['bsButton']} onClick={this.props.onCancelClick}>
-                 <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
-                 Cancel 
+                  <Button className={styles['bsButton']} onClick={this.props.onCancelClick}>
+                    <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
+                    Cancel
                  </Button>
-              </ButtonGroup>
-            </div>
+                </ButtonGroup>
+              </form>
         }
       </div>
     );
