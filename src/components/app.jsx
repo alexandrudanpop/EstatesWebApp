@@ -7,6 +7,7 @@ import { api } from '../api.js'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
 import EstatesContainer from './estates-container'
+import CreateEstate from './create-estate'
 
 const endpoint = api + '/api/estates'
 
@@ -108,11 +109,9 @@ export default class App extends React.Component {
     this.setState({ createNewEnabled: false })
   }
 
-  onSaveNewClick() {
-    let newEstate = {
-      name: this.refs.newItemName.value,
-      price: this.refs.newItemPrice.value,
-      images: []
+  onSaveNewClick(newEstate) {
+    if(!newEstate){
+      return
     }
 
     const validationErrors = this.validateEstate(newEstate);
@@ -257,19 +256,20 @@ export default class App extends React.Component {
               estateId={this.state.selectedEstateId}
               /> : null
         }
-
         <h2> Estates </h2>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
-        {// todo extract new comp - CreateNewEstate
-          this.state.createNewEnabled ? <button onClick={this.onAddNewClick.bind(this)}> Add new </button>
-            : <div>
-              <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
-              <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
-              <span> </span>
-              <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
-              <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
-            </div>
-        }
+
+        <CreateEstate
+          createNewEnabled={this.state.createNewEnabled}
+          onAddNewClick={this.onAddNewClick.bind(this)}
+          onSaveNewClick={this.onSaveNewClick.bind(this)}
+          onCancelClick={this.onCancelClick.bind(this)}
+          />
+          
+        <div className={styles["error"]}>
+          {this.state.errors}
+        </div>
+
         <EstateFilters
           search={this.search.bind(this)}
           removeFilters={this.removeFilters.bind(this)}
@@ -284,10 +284,6 @@ export default class App extends React.Component {
           showImages={this.showImages.bind(this)}
           selectedEstateChanged={this.selectedEstateChanged.bind(this)}
           />
-
-        <div className={styles["error"]}>
-          {this.state.errors}
-        </div>
       </div>
     )
   }

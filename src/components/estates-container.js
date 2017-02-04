@@ -4,14 +4,6 @@ import EstateList from './estate-list'
 import styles from './index.scss';
 
 export default class EstatesContainer extends Component {
-  constructor(props) {
-    super(props)
-
-    this.state = {
-      isMobile: null
-    }
-  }
-
   renderImageSlider() {
     return (
       this.props.estates[0] && this.props.estates[0].images.length !== 0
