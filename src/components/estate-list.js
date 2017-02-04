@@ -29,7 +29,7 @@ class EstateList extends Component {
 
   render() {
     return (
-      <Table striped bordered condensed hover>
+      <Table responsive hover>
         <EstateHeader />
         <tbody>
           {this.renderItems()}

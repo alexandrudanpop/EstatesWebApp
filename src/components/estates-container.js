@@ -278,6 +278,8 @@ export default class EstatesContainer extends Component {
         <h2> Estates </h2>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
 
+        {isMobile ? this.renderImageSlider() : null}
+
         <CreateEstate
           createNewEnabled={this.state.createNewEnabled}
           onAddNewClick={this.onAddNewClick.bind(this)}
@@ -293,8 +295,8 @@ export default class EstatesContainer extends Component {
           search={this.search.bind(this)}
           removeFilters={this.removeFilters.bind(this)}
           />
+        <br />
 
-        {isMobile ? this.renderImageSlider() : null}
         <div className={styles['estateList']}>
           <EstateList
             estates={this.state.estates}

@@ -45,7 +45,7 @@ class EstateListItem extends Component {
   renderName() {
     if (this.state.isEditing) {
       return (
-        <td> <input type="text" ref="nameInput" defaultValue={this.props.estate.name} /> </td>
+        <td> <input type="text" ref="nameInput" autoFocus defaultValue={this.props.estate.name} /> </td>
       )
     }
 
