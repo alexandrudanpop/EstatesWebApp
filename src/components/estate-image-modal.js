@@ -1,6 +1,7 @@
 import styles from './modalStyles.scss'
 import commonStyles from './index.scss'
 import React from 'react'
+import { Button } from 'react-bootstrap'
 
 export default class EstateImageModal extends React.Component {
   constructor(props) {
@@ -57,12 +58,14 @@ export default class EstateImageModal extends React.Component {
     return (
       <div style={showModalStyle} className={styles['modal']} ref='imageModal'>
         <div className={styles['modal-content']}>
-          <span ref='closeButton' onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
+          <span onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
           <h3> Add some images </h3>
           <div className={commonStyles["error"]}>
             {this.state.error}
           </div>
-          {this.state.image && !this.state.error ? <button onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </button> : null}
+          {this.state.image && !this.state.error 
+            ? <Button bsStyle='success' className={commonStyles['bsButtonMarginBottom']} onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </Button> 
+            : null}
           <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this, this.props.estateId)} />
           <img className={styles['uploadedImage']} ref='imageContainer' />
         </div>

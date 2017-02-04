@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
+import { Button, ButtonToolbar } from 'react-bootstrap'
 
 class EstateListItem extends Component {
   constructor(props) {
@@ -69,17 +70,21 @@ class EstateListItem extends Component {
     if (this.state.isEditing) {
       return (
         <td>
-          <button onClick={this.onSaveClick.bind(this)}> Save </button>
-          <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
+          <ButtonToolbar>
+            <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}> Save </Button>
+            <Button onClick={this.onCancelClick.bind(this)}> Cancel </Button>
+          </ButtonToolbar>
         </td>
       )
     }
 
     return (
       <td>
-        <button className={styles['editButton']} onClick={this.onEditClick.bind(this)}> Edit </button>
-        <button className={styles['deleteButton']} onClick={this.onDeleteClick.bind(this)}> Delete </button>
-        <button className={styles['defaultButton']} onClick={this.onAddImagesClick.bind(this)}> Add images </button>
+        <ButtonToolbar>
+          <Button bsStyle='warning' onClick={this.onEditClick.bind(this)}> Edit </Button>
+          <Button bsStyle='danger' onClick={this.onDeleteClick.bind(this)}> Delete </Button>
+          <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
+        </ButtonToolbar>
       </td>
     )
   }

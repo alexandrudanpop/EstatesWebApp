@@ -1,15 +1,14 @@
 import React, { Component } from 'react';
-import EstateImageSlider from './estate-image-slider'
-import EstateList from './estate-list'
 import styles from './index.scss';
 
 import axios from 'axios'
 import Spinner from 'react-spinkit'
 import { api } from '../api.js'
 
+import EstateImageSlider from './estate-image-slider'
+import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
-
 import CreateEstate from './create-estate'
 
 const endpoint = api + '/api/estates'
@@ -262,9 +261,6 @@ export default class EstatesContainer extends Component {
   }
 
   render() {
-    if (this.state.estates.length == 0) {
-      return <div> </div>;
-    }
     if (parent.window.innerWidth < 800) {
       var isMobile = true
     }

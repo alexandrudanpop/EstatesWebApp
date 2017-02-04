@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from './index.scss';
+import { Button } from 'react-bootstrap'
 
 export default class EstateFilters extends React.Component {
   constructor(props) {
@@ -36,12 +37,12 @@ export default class EstateFilters extends React.Component {
         ?
         <div>
           Name
-          <input className={styles['autoSizedInput']} type="text" ref="nameInput" autoFocus onChange={this.onSearchClick.bind(this)} />
-          <button className={styles['defaultButton']} onClick={this.onCancelClick.bind(this)}> Cancel </button>
+          <input className={styles['autoSizedInput']} type='text' ref='nameInput' autoFocus onChange={this.onSearchClick.bind(this)} />
+          <Button className={styles['bsButton']} onClick={this.onCancelClick.bind(this)}> Cancel </Button>
         </div>
         :
         <div>
-          <button onClick={this.onFilterClick.bind(this)}> Filter </button>
+          <Button className={styles['autoSizedInput']} bsStyle='primary' onClick={this.onFilterClick.bind(this)}> Filter </Button>
         </div>
     )
   }

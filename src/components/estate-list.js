@@ -4,6 +4,7 @@ import EstateHeader from './estates-header'
 import EstateListItem from './estate-list-item'
 
 import styles from './index.scss'
+import { Table } from 'react-bootstrap'
 
 class EstateList extends Component {
   renderItems() {
@@ -28,12 +29,12 @@ class EstateList extends Component {
 
   render() {
     return (
-      <table>
+      <Table striped bordered condensed hover>
         <EstateHeader />
         <tbody>
           {this.renderItems()}
         </tbody>
-      </table>
+      </Table>
     );
   }
 }

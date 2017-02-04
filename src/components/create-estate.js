@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
 import styles from './index.scss';
+import { ButtonGroup, Button } from 'react-bootstrap'
 
 export default class CreateEstate extends Component {
-  onSaveNewClick(){
+  onSaveNewClick() {
     const newEstate = {
       name: this.refs.newItemName.value,
       price: this.refs.newItemPrice.value,
@@ -15,16 +16,19 @@ export default class CreateEstate extends Component {
   render() {
     return (
       <div>
-      {
-        this.props.createNewEnabled ? <button onClick={this.props.onAddNewClick}> Add new </button>
-        : <div>
-          <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
-          <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
-          <span> </span>
-          <button onClick={this.onSaveNewClick.bind(this)}> Save </button>
-          <button className={styles['defaultButton']} onClick={this.props.onCancelClick}> Cancel </button>
-        </div>
-      }
+        {
+          this.props.createNewEnabled ? 
+           <Button bsStyle="success" className={styles['autoSizedInput']} onClick={this.props.onAddNewClick}> Add new </Button>
+            : <div>
+              <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
+              <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
+              <span> </span>
+              <ButtonGroup>
+                <Button bsStyle="success" className={styles['bsButton']} onClick={this.onSaveNewClick.bind(this)}> Save</Button>
+                <Button className={styles['bsButton']} onClick={this.props.onCancelClick}> Cancel </Button>
+              </ButtonGroup>
+            </div>
+        }
       </div>
     );
   }

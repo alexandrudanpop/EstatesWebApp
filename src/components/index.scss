@@ -27,7 +27,6 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-
 .estateList {
     width: 60%;
     float: left;
@@ -59,31 +58,13 @@ input[type=text], select {
     width: auto!important;
 }
 
-/* Style for buttons */
-button {
-    background-color: #6be0ab;
-    border: none;
-    color: black;
-    padding: 4px 10px;
-    margin: 2px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 5px;
-    cursor: pointer;
+.bsButton{
+  margin-left: 3px!important;
+  margin-bottom: 1px!important;
 }
 
-.editButton {
-    background-color: #e8f265;
-}
-
-.deleteButton {
-    background-color: #ff9f82;
-}
-
-.defaultButton {
-    background-color: #f2e6e6;
+.bsButtonMarginBottom{
+  margin-bottom: 1px!important;
 }
 
 /* Validation error text */
