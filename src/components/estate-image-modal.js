@@ -64,7 +64,10 @@ export default class EstateImageModal extends React.Component {
             {this.state.error}
           </div>
           {this.state.image && !this.state.error 
-            ? <Button bsStyle='success' className={commonStyles['bsButtonMarginBottom']} onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> Save </Button> 
+            ? <Button bsStyle='success' className={commonStyles['bsButtonMarginBottom']} onClick={this.props.saveImage.bind(this, this.state.image, this.state.estateId)}> 
+            <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
+            Save 
+            </Button> 
             : null}
           <input className={styles['inputfile']} type='file' ref='fileInput' onChange={this.onImageSelectionChange.bind(this, this.props.estateId)} />
           <img className={styles['uploadedImage']} ref='imageContainer' />

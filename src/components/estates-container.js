@@ -276,7 +276,10 @@ export default class EstatesContainer extends Component {
               estateId={this.state.selectedEstateId}
               /> : null
         }
-        <PageHeader> Estates app </PageHeader>
+        <PageHeader>
+        <span className='glyphicon glyphicon-home'></span>{'\u00A0'}
+          Estates app 
+        </PageHeader>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
 
         {isMobile ? this.renderImageSlider() : null}

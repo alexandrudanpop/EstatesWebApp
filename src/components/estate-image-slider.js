@@ -27,11 +27,13 @@ export default class EstateImageSlider extends Component {
     }
 
     return (
-      <Slider {...this.state.sliderSetting}>
-        {this.props.images.map(image => {
-          return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} />
-        })}
-      </Slider>
+      <div>
+        <Slider {...this.state.sliderSetting}>
+          {this.props.images.map(image => {
+            return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} />
+          })}
+        </Slider>
+      </div>
     )
   }
 }

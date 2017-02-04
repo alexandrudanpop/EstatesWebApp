@@ -17,15 +17,26 @@ export default class CreateEstate extends Component {
     return (
       <div>
         {
-          this.props.createNewEnabled ? 
-           <Button bsStyle="success" className={styles['autoSizedInput']} onClick={this.props.onAddNewClick}> Add new </Button>
+          this.props.createNewEnabled ?
+            <Button bsStyle='success' className={styles['autoSizedInput']} onClick={this.props.onAddNewClick}>
+              <span className='glyphicon glyphicon-plus'></span>{'\u00A0'}
+              Add new
+            </Button>
             : <div>
-              <label> Name </label> <input className={styles['autoSizedInput']} type="text" ref="newItemName" autoFocus />
-              <label> Price </label> <input className={styles['autoSizedInput']} type="text" ref="newItemPrice" />
+              <label> Name </label>{'\u00A0'}
+              <input className={styles['autoSizedInput']} type='text' ref='newItemName' autoFocus /> {'\u00A0'}
+              <label> Price </label>{'\u00A0'}
+              <input className={styles['autoSizedInput']} type='text' ref='newItemPrice' />
               <span> </span>
               <ButtonGroup>
-                <Button bsStyle="success" className={styles['bsButton']} onClick={this.onSaveNewClick.bind(this)}> Save</Button>
-                <Button className={styles['bsButton']} onClick={this.props.onCancelClick}> Cancel </Button>
+                <Button bsStyle='success' className={styles['bsButton']} onClick={this.onSaveNewClick.bind(this)}>
+                  <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
+                  Save
+                </Button>
+                <Button className={styles['bsButton']} onClick={this.props.onCancelClick}>
+                 <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
+                 Cancel 
+                 </Button>
               </ButtonGroup>
             </div>
         }

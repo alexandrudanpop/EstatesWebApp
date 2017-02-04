@@ -45,7 +45,7 @@ class EstateListItem extends Component {
   renderName() {
     if (this.state.isEditing) {
       return (
-        <td> <input type="text" ref="nameInput" autoFocus defaultValue={this.props.estate.name} /> </td>
+        <td> <input type='text' ref='nameInput' autoFocus defaultValue={this.props.estate.name} /> </td>
       )
     }
 
@@ -57,7 +57,7 @@ class EstateListItem extends Component {
   renderPrice() {
     if (this.state.isEditing) {
       return (
-        <td> <input type="text" ref="priceInput" defaultValue={this.props.estate.price} /> </td>
+        <td> <input type='text' ref='priceInput' defaultValue={this.props.estate.price} /> </td>
       )
     }
 
@@ -71,8 +71,14 @@ class EstateListItem extends Component {
       return (
         <td>
           <ButtonToolbar>
-            <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}> Save </Button>
-            <Button onClick={this.onCancelClick.bind(this)}> Cancel </Button>
+            <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}>
+              <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
+              Save
+            </Button>
+            <Button onClick={this.onCancelClick.bind(this)}>
+              <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
+              Cancel
+            </Button>
           </ButtonToolbar>
         </td>
       )
@@ -81,8 +87,14 @@ class EstateListItem extends Component {
     return (
       <td>
         <ButtonToolbar>
-          <Button bsStyle='warning' onClick={this.onEditClick.bind(this)}> Edit </Button>
-          <Button bsStyle='danger' onClick={this.onDeleteClick.bind(this)}> Delete </Button>
+          <Button bsStyle='warning' onClick={this.onEditClick.bind(this)}>
+            <span className='glyphicon glyphicon-pencil'></span>{'\u00A0'}
+            Edit
+          </Button>
+          <Button bsStyle='danger' onClick={this.onDeleteClick.bind(this)}>
+            <span className='glyphicon glyphicon-remove'></span>{'\u00A0'}
+            Delete
+          </Button>
           <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
         </ButtonToolbar>
       </td>
