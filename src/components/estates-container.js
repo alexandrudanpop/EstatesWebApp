@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import styles from './index.scss';
+import { PageHeader } from 'react-bootstrap'
 
 import axios from 'axios'
 import Spinner from 'react-spinkit'
@@ -275,7 +276,7 @@ export default class EstatesContainer extends Component {
               estateId={this.state.selectedEstateId}
               /> : null
         }
-        <h2> Estates </h2>
+        <PageHeader> Estates app </PageHeader>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
 
         {isMobile ? this.renderImageSlider() : null}
