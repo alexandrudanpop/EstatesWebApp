@@ -295,7 +295,6 @@ export default class EstatesContainer extends Component {
           search={this.search.bind(this)}
           removeFilters={this.removeFilters.bind(this)}
         />
-        <br />
 
         <div className={styles["error"]}>
           {this.state.errors}

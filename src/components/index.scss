@@ -2,7 +2,6 @@ th {
     background-color:#f2f2f2;
 }
 
-/* Style for inputs */
 input[type=text], select {
     width: 100%;
     padding: 6px 10px;
@@ -39,7 +38,6 @@ input[type=text], select {
     }
 }
 
-
 .autoSizedInput {
     width: auto!important;
 }
@@ -57,7 +55,6 @@ input[type=text], select {
   margin-top: 15px;
 }
 
-/* Validation error text */
 .error{
     color: red;
     padding: 0.1em;
@@ -72,4 +69,5 @@ input[type=text], select {
 
 .filterContainer {
   margin-top: 2px;
+  margin-bottom: 2px;
 }
