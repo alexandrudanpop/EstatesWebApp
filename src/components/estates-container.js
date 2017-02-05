@@ -274,11 +274,11 @@ export default class EstatesContainer extends Component {
               hideImages={this.hideImages.bind(this)}
               saveImage={this.saveImage.bind(this)}
               estateId={this.state.selectedEstateId}
-              /> : null
+            /> : null
         }
         <PageHeader>
-        <span className='glyphicon glyphicon-home'></span>{'\u00A0'}
-          Estates app 
+          <span className='glyphicon glyphicon-home'></span>{'\u00A0'}
+          Estates app
         </PageHeader>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
 
@@ -289,17 +289,17 @@ export default class EstatesContainer extends Component {
           onAddNewClick={this.onAddNewClick.bind(this)}
           onSaveNewClick={this.onSaveNewClick.bind(this)}
           onCancelClick={this.onCancelClick.bind(this)}
-          />
-
-        <div className={styles["error"]}>
-          {this.state.errors}
-        </div>
+        />
 
         <EstateFilters
           search={this.search.bind(this)}
           removeFilters={this.removeFilters.bind(this)}
-          />
+        />
         <br />
+
+        <div className={styles["error"]}>
+          {this.state.errors}
+        </div>
 
         <div className={styles['estateList']}>
           <EstateList
@@ -309,7 +309,7 @@ export default class EstatesContainer extends Component {
             cancel={this.cancel.bind(this)}
             showImages={this.showImages.bind(this)}
             selectedEstateChanged={this.selectedEstateChanged.bind(this)}
-            />
+          />
         </div>
         {isMobile ? null : this.renderImageSlider()}
       </div>

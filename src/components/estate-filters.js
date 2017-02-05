@@ -35,7 +35,7 @@ export default class EstateFilters extends React.Component {
     return (
       this.state.isFiltering
         ?
-        <div>
+        <div className={styles['filterContainer']}>
           <label> Name </label> {'\u00A0'}
           <input className={styles['autoSizedInput']} type='text' ref='nameInput' autoFocus onChange={this.onSearchClick.bind(this)} />{'\u00A0'}
           <Button className={styles['bsButton']} onClick={this.onCancelClick.bind(this)}>
@@ -44,8 +44,8 @@ export default class EstateFilters extends React.Component {
           </Button>
         </div>
         :
-        <div>
-          <Button className={styles['autoSizedInput']} bsStyle='primary' onClick={this.onFilterClick.bind(this)}>
+        <div className={styles['filterContainer']}>
+          <Button bsStyle='primary' onClick={this.onFilterClick.bind(this)}>
             <span className="glyphicon glyphicon-search"></span>{'\u00A0'}
             Search
           </Button>

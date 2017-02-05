@@ -12,7 +12,7 @@ th, td {
 tr:nth-child(odd){background-color: #f2f2f2}
 
 th {
-    background-color: #6be0ab;
+    background-color: #5cb85c;
     color: black;
 }
 
@@ -82,4 +82,8 @@ input[type=text], select {
   border-radius: 10px;
   padding: 5px;
   margin-bottom: 8px;
+}
+
+.filterContainer {
+  margin-top: 2px;
 }
