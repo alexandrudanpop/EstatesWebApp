@@ -1,19 +1,5 @@
-table {
-    border-collapse: collapse;
-    width: 100%;
-    table-layout:fixed;
-}
-
-th, td {
-    text-align: left;
-    padding: 8px;
-}
-
-tr:nth-child(odd){background-color: #f2f2f2}
-
 th {
-    background-color: #5cb85c;
-    color: black;
+    background-color:#f2f2f2;
 }
 
 /* Style for inputs */
