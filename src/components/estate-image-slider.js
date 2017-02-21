@@ -10,12 +10,12 @@ export default class EstateImageSlider extends Component {
       sliderSetting: {
         dots: true,
         arrows: false,
-        // infinite: true,
+        infinite: true,
         speed: 200,
         fade: true,
         cssEase: 'linear',
-        // slidesToShow: 1,
-        // slidesToScroll: 1,
+       slidesToShow: 1,
+      slidesToScroll: 1,
         centerMode: true,
       }
     }
@@ -30,7 +30,7 @@ export default class EstateImageSlider extends Component {
       <div>
         <Slider {...this.state.sliderSetting}>
           {this.props.images.map(image => {
-            return <img key={image.id} className={styles['estateImage']} src={'http://' + image.link} />
+            return <img key={image.id} src={'http://' + image.link} className='img-responsive'/>
           })}
         </Slider>
       </div>

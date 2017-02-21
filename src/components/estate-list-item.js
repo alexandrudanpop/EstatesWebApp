@@ -45,31 +45,32 @@ class EstateListItem extends Component {
   renderName() {
     if (this.state.isEditing) {
       return (
-        <td> <input type='text' ref='nameInput' autoFocus defaultValue={this.props.estate.name} /> </td>
+        <h1> <input type='text' ref='nameInput' autoFocus defaultValue={this.props.estate.name} /> </h1>
       )
     }
 
     return (
-      <td> {this.props.estate.name} </td>
+      <h1> {this.props.estate.name} </h1>
     )
   }
 
   renderPrice() {
     if (this.state.isEditing) {
       return (
-        <td> <input type='text' ref='priceInput' defaultValue={this.props.estate.price} /> </td>
+        <div> <input type='text' ref='priceInput' defaultValue={this.props.estate.price} /> </div>
       )
     }
 
     return (
-      <td> {this.props.estate.price}</td>
+      <div> {this.props.estate.price}</div>
     )
   }
 
+  // todo Edit / Delete Actions - move to estate-details modal
   renderActionSection() {
-    if (this.state.isEditing) {
+    /*if (this.state.isEditing) {
       return (
-        <td>
+        <div>
           <ButtonToolbar>
             <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}>
               <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
@@ -80,35 +81,56 @@ class EstateListItem extends Component {
               Cancel
             </Button>
           </ButtonToolbar>
-        </td>
+        </div>
       )
-    }
+    }*/
 
     return (
-      <td>
+      <div>
         <ButtonToolbar>
-          <Button bsStyle='warning' onClick={this.onEditClick.bind(this)}>
+          {/*<Button bsStyle='warning' onClick={this.onEditClick.bind(this)}>
             <span className='glyphicon glyphicon-pencil'></span>{'\u00A0'}
             Edit
           </Button>
           <Button bsStyle='danger' onClick={this.onDeleteClick.bind(this)}>
             <span className='glyphicon glyphicon-remove'></span>{'\u00A0'}
             Delete
-          </Button>
+          </Button>*/}
           <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
         </ButtonToolbar>
-      </td>
+      </div>
+    )
+  }
+
+  renderImage() {
+    return (
+      this.props.estate && this.props.estate.images.length !== 0
+        ?
+        <div>
+          <img src={'http://' + this.props.estate.images[0].link} className='img-responsive' />
+        </div>
+        : <div>  </div>
     )
   }
 
   render() {
     return (
-      <tr onClick={this.props.selectedEstateChanged.bind(this, this.props.estate.id)}>
-        <td> {this.props.estate.id} </td>
-        {this.renderName()}
-        {this.renderPrice()}
-        {this.renderActionSection()}
-      </tr>
+      <div onClick={this.props.selectedEstateChanged.bind(this, this.props.estate.id)}>
+        <div className='col-md-3'>
+          <div className={styles['block']}>
+            <div className={styles['thumbnail']}>
+              {this.renderImage()}
+              <div className={styles['caption']}>
+                {this.renderName()}
+                {this.renderPrice()}
+                <Button bsStyle='primary' onClick={() => { }}> Details </Button>
+                <br />
+                {this.renderActionSection()}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     )
   }
 }

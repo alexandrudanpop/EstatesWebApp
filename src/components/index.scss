@@ -1,6 +1,8 @@
-th {
-    background-color:#f2f2f2;
-}
+/* Global styles */ 
+body{background: #fff; font-size: 14px; line-height: 24px;}
+h1, h2, h3, h4, h5, h6{margin: 0;}
+p{padding-bottom: 25px; margin: 0;}
+
 
 input[type=text], select {
     width: 100%;
@@ -12,12 +14,6 @@ input[type=text], select {
     box-sizing: border-box;
 }
 
-.estateList {
-    width: 60%;
-    float: left;
-    height: 300px;
-}
-
 .imageCarousel {
     width: 38%;
     height: 40%;
@@ -27,16 +23,6 @@ input[type=text], select {
     color: white;
 }
 
-@media screen and (max-width: 800px){
-    .estateList{
-        width: 100%;
-    }
-    
-    .imageCarousel {
-      width: 95%;
-      display:block;
-    }
-}
 
 .autoSizedInput {
     width: auto!important;
@@ -60,14 +46,16 @@ input[type=text], select {
     padding: 0.1em;
 }
 
-.estateImage {
-  height: auto;
-  border-radius: 10px;
-  padding: 5px;
-  margin-bottom: 8px;
-}
-
 .filterContainer {
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
+/* Main Estates List Styles */
+.featured-block{padding:55px 0; overflow: hidden;}
+@media screen and (max-width: 800px){
+  .thumbnail{box-shadow: 0 3px 3px 1px #e0e0e0; margin-bottom: 15px;}
+}
+.thumbnail{height: 400px; box-shadow: 0 3px 3px 1px #e0e0e0; margin-bottom: 15px;}
+.caption{padding: 25px 15px;}
+.caption h1{font-size: 18px; line-height: 24px;color: #34b091; text-transform: uppercase;font-family: 'source_sans_probold';  padding-bottom: 10px; letter-spacing: 1px;}

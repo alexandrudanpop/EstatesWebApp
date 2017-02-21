@@ -6,7 +6,6 @@ import axios from 'axios'
 import Spinner from 'react-spinkit'
 import { api } from '../api.js'
 
-import EstateImageSlider from './estate-image-slider'
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
@@ -247,25 +246,8 @@ export default class EstatesContainer extends Component {
     this.setState({ selectedEstate: selectedEstate[0] })
   }
 
-  renderImageSlider() {
-    return (
-      this.state.estates[0] && this.state.estates[0].images.length !== 0
-        ?
-        <div className={styles['imageCarousel']}>
-          {this.state.selectedEstate
-            ? <EstateImageSlider images={this.state.selectedEstate.images} />
-            : <EstateImageSlider images={this.state.estates[0].images} />
-          }
-        </div>
-        : <div> </div>
-    )
-  }
-
+// todo - remove selectedEstate
   render() {
-    if (parent.window.innerWidth < 800) {
-      var isMobile = true
-    }
-
     return (
       <div>
         {
@@ -282,8 +264,6 @@ export default class EstatesContainer extends Component {
         </PageHeader>
         {this.state.estates.length === 0 ? <span> <Spinner spinnerName='three-bounce' noFadeIn /> </span> : <br />}
 
-        {isMobile ? this.renderImageSlider() : null}
-
         <CreateEstate
           createNewEnabled={this.state.createNewEnabled}
           onAddNewClick={this.onAddNewClick.bind(this)}
@@ -296,7 +276,7 @@ export default class EstatesContainer extends Component {
           removeFilters={this.removeFilters.bind(this)}
         />
 
-        <div className={styles["error"]}>
+        <div className={styles['error']}>
           {this.state.errors}
         </div>
 
@@ -310,7 +290,6 @@ export default class EstatesContainer extends Component {
             selectedEstateChanged={this.selectedEstateChanged.bind(this)}
           />
         </div>
-        {isMobile ? null : this.renderImageSlider()}
       </div>
     );
   }
