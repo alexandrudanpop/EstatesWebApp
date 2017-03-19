@@ -115,7 +115,6 @@ class EstateListItem extends Component {
 
   render() {
     return (
-      <div onClick={this.props.selectedEstateChanged.bind(this, this.props.estate.id)}>
         <div className='col-md-3'>
           <div className={styles['block']}>
             <div className={styles['thumbnail']}>
@@ -130,7 +129,6 @@ class EstateListItem extends Component {
             </div>
           </div>
         </div>
-      </div>
     )
   }
 }

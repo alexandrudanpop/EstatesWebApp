@@ -21,7 +21,6 @@ export default class EstatesContainer extends Component {
       createNewEnabled: true,
       showImagesModal: false,
       selectedEstateId: null,
-      selectedEstate: null,
       errors: null
     }
   }
@@ -239,14 +238,6 @@ export default class EstatesContainer extends Component {
     this.hideImages()
   }
 
-  selectedEstateChanged(estateId) {
-    const selectedEstate = this.state.estates.filter((e) => {
-      return e.id == estateId
-    })
-    this.setState({ selectedEstate: selectedEstate[0] })
-  }
-
-// todo - remove selectedEstate
   render() {
     return (
       <div>
@@ -287,7 +278,6 @@ export default class EstatesContainer extends Component {
             editEstate={this.editEstate.bind(this)}
             cancel={this.cancel.bind(this)}
             showImages={this.showImages.bind(this)}
-            selectedEstateChanged={this.selectedEstateChanged.bind(this)}
           />
         </div>
       </div>

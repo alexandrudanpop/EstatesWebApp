@@ -18,7 +18,6 @@ class EstateList extends Component {
           editEstate={this.props.editEstate}
           cancel={this.props.cancel}
           showImages={this.props.showImages}
-          selectedEstateChanged={this.props.selectedEstateChanged}
         />
       )
     })
