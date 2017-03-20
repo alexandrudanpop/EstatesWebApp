@@ -2,12 +2,16 @@ import React, { Component } from 'react';
 
 import EstateListItem from './estate-list-item'
 import styles from './index.scss'
+import Blazy from 'blazy'
 
 class EstateList extends Component {
   renderItems() {
     if (!this.props.estates) {
       return
     }
+
+    // used to lazy load images
+    const bLazy = new Blazy({});
 
     return this.props.estates.map(estate => {
       return (

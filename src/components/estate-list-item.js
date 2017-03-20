@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import styles from './index.scss'
 import { Button, ButtonToolbar } from 'react-bootstrap'
+import { api } from '../api.js'
 
 class EstateListItem extends Component {
   constructor(props) {
@@ -107,7 +108,7 @@ class EstateListItem extends Component {
       this.props.estate && this.props.estate.images.length !== 0
         ?
         <div>
-          <img src={'http://' + this.props.estate.images[0].link} className='img-responsive' />
+          <img data-src={'http://' + this.props.estate.images[0].link} src= {api + '/spin.gif'} className='img-responsive b-lazy' />
         </div>
         : <div>  </div>
     )
