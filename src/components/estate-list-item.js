@@ -16,31 +16,19 @@ class EstateListItem extends Component {
     this.setState({ isEditing: true })
   }
 
-  onCancelClick() {
-    this.setState({ isEditing: false })
-    this.props.cancel()
-  }
-
   onDeleteClick() {
     const id = this.props.estate.id
     this.props.deleteEstate(id)
   }
 
-  onSaveClick() {
-    const editWithoutErrors = this.props.editEstate({
-      id: this.props.estate.id,
-      name: this.refs.nameInput.value,
-      price: this.refs.priceInput.value
-    })
-
-    if (editWithoutErrors) {
-      this.setState({ isEditing: false })
-    }
-  }
-
   onAddImagesClick() {
     const id = this.props.estate.id
     this.props.showImages(id)
+  }
+
+  onDetailsClick() {
+    const id = this.props.estate.id
+    this.props.showDetails(id)
   }
 
   renderName() {
@@ -97,6 +85,7 @@ class EstateListItem extends Component {
             <span className='glyphicon glyphicon-remove'></span>{'\u00A0'}
             Delete
           </Button>*/}
+          <Button bsStyle='primary' onClick={this.onDetailsClick.bind(this)}> Details </Button>
           <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
         </ButtonToolbar>
       </div>
@@ -108,7 +97,7 @@ class EstateListItem extends Component {
       this.props.estate && this.props.estate.images.length !== 0
         ?
         <div>
-          <img data-src={'http://' + this.props.estate.images[0].link} src= {api + '/spin.gif'} className='img-responsive b-lazy' />
+          <img data-src={'http://' + this.props.estate.images[0].link} src= {'http://' + this.props.estate.images[0].link} className='img-responsive b-lazy' />
         </div>
         : <div>  </div>
     )
@@ -123,7 +112,6 @@ class EstateListItem extends Component {
               <div className={styles['caption']}>
                 {this.renderName()}
                 {this.renderPrice()}
-                <Button bsStyle='primary' onClick={() => { }}> Details </Button>
                 <br />
                 {this.renderActionSection()}
               </div>

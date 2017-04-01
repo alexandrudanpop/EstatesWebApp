@@ -9,6 +9,7 @@ import { api } from '../api.js'
 import EstateList from './estate-list'
 import EstateFilters from './estate-filters'
 import EstateImageModal from './estate-image-modal'
+import EstateDetailsModal from './estate-details-modal'
 import CreateEstate from './create-estate'
 
 const endpoint = api + '/api/estates'
@@ -20,7 +21,9 @@ export default class EstatesContainer extends Component {
       estates: [],
       createNewEnabled: true,
       showImagesModal: false,
+      showDetailsModal: false,
       selectedEstateId: null,
+      selectedEstate: null,
       errors: null
     }
   }
@@ -50,12 +53,10 @@ export default class EstatesContainer extends Component {
 
     this.setState({ errors: null })
 
-    const foundEstate = this.state.estates.filter(function (e) {
-      return e.id == estate.id
-    })
+    const foundEstate = this.selectEstateById(estate.id)
 
     const editedEstate = {
-      id: foundEstate[0].id,
+      id: foundEstate.id,
       name: estate.name,
       price: estate.price
     }
@@ -63,10 +64,11 @@ export default class EstatesContainer extends Component {
     axios.put(endpoint, editedEstate)
       .then((response) => {
         console.log(response)
-        foundEstate[0].name = estate.name
-        foundEstate[0].price = estate.price
+        foundEstate.name = estate.name
+        foundEstate.price = estate.price
 
-        this.setState({ estates: this.state.estates })
+        this.setState({ estates: this.state.estates, showDetailsModal: false})
+        this.hideDetails();
       })
       .catch((error) => {
         if (error.response && error.response.data) {
@@ -202,7 +204,16 @@ export default class EstatesContainer extends Component {
   }
 
   hideImages() {
-    this.setState({ showImagesModal: false })
+    this.setState({ showImagesModal: false, selectedEstateId: null })
+  }
+
+  showDetails(id) {
+    const selectedEstate = this.selectEstateById(id);
+    this.setState({ showDetailsModal: true, selectedEstateId: id, selectedEstate: selectedEstate, errors: null })
+  }
+
+  hideDetails() {
+    this.setState({ showDetailsModal: false, selectedEstateId: null ,selectedEstate: null })
   }
 
   saveImage(image, estateId) {
@@ -238,6 +249,11 @@ export default class EstatesContainer extends Component {
     this.hideImages()
   }
 
+  selectEstateById(id) {
+    const estate = this.state.estates.find(e => e.id == id)
+    return estate;
+  }
+
   render() {
     return (
       <div>
@@ -249,6 +265,16 @@ export default class EstatesContainer extends Component {
               estateId={this.state.selectedEstateId}
             /> : null
         }
+
+        {
+          this.state.showDetailsModal ?
+            <EstateDetailsModal
+              hideDetails={this.hideDetails.bind(this)}
+              estate={this.state.selectedEstate}
+              editEstate={this.editEstate.bind(this)}
+            /> : null
+        }
+
         <PageHeader>
           <span className='glyphicon glyphicon-home'></span>{'\u00A0'}
           Estates app
@@ -275,9 +301,9 @@ export default class EstatesContainer extends Component {
           <EstateList
             estates={this.state.estates}
             deleteEstate={this.deleteEstate.bind(this)}
-            editEstate={this.editEstate.bind(this)}
             cancel={this.cancel.bind(this)}
             showImages={this.showImages.bind(this)}
+            showDetails={this.showDetails.bind(this)}
           />
         </div>
       </div>
