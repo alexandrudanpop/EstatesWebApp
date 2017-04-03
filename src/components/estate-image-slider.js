@@ -14,8 +14,8 @@ export default class EstateImageSlider extends Component {
         speed: 200,
         fade: true,
         cssEase: 'linear',
-       slidesToShow: 1,
-      slidesToScroll: 1,
+        slidesToShow: 1,
+        slidesToScroll: 1,
         centerMode: true,
       }
     }
@@ -27,10 +27,10 @@ export default class EstateImageSlider extends Component {
     }
 
     return (
-      <div>
+      <div className={styles['imageCarousel']}>
         <Slider {...this.state.sliderSetting}>
           {this.props.images.map(image => {
-            return <img key={image.id} src={'http://' + image.link} className='img-responsive'/>
+            return <img key={image.id} src={'http://' + image.link} className='img-responsive' />
           })}
         </Slider>
       </div>

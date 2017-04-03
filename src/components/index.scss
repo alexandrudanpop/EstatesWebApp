@@ -15,14 +15,10 @@ input[type=text], select {
 }
 
 .imageCarousel {
-    width: 38%;
-    height: 40%;
-    float: left;
-    margin-left:1%; 
-    padding:2px;
-    color: white;
+    margin: auto;
+    width: 60%;
+    padding: 10px;
 }
-
 
 .autoSizedInput {
     width: auto!important;

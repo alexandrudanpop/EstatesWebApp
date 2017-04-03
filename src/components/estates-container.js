@@ -67,7 +67,7 @@ export default class EstatesContainer extends Component {
         foundEstate.name = estate.name
         foundEstate.price = estate.price
 
-        this.setState({ estates: this.state.estates, showDetailsModal: false})
+        this.setState({ estates: this.state.estates, showDetailsModal: false })
         this.hideDetails();
       })
       .catch((error) => {
@@ -213,7 +213,7 @@ export default class EstatesContainer extends Component {
   }
 
   hideDetails() {
-    this.setState({ showDetailsModal: false, selectedEstateId: null ,selectedEstate: null })
+    this.setState({ showDetailsModal: false, selectedEstateId: null, selectedEstate: null })
   }
 
   saveImage(image, estateId) {

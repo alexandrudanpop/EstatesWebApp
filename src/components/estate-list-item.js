@@ -97,7 +97,7 @@ class EstateListItem extends Component {
       this.props.estate && this.props.estate.images.length !== 0
         ?
         <div>
-          <img data-src={'http://' + this.props.estate.images[0].link} src= {'http://' + this.props.estate.images[0].link} className='img-responsive b-lazy' />
+          <img data-src={'http://' + this.props.estate.images[0].link} src={'http://' + this.props.estate.images[0].link} className='img-responsive b-lazy' />
         </div>
         : <div>  </div>
     )
@@ -105,19 +105,19 @@ class EstateListItem extends Component {
 
   render() {
     return (
-        <div className='col-md-3'>
-          <div className={styles['block']}>
-            <div className={styles['thumbnail']}>
-              {this.renderImage()}
-              <div className={styles['caption']}>
-                {this.renderName()}
-                {this.renderPrice()}
-                <br />
-                {this.renderActionSection()}
-              </div>
+      <div className='col-md-3'>
+        <div className={styles['block']}>
+          <div className={styles['thumbnail']}>
+            {this.renderImage()}
+            <div className={styles['caption']}>
+              {this.renderName()}
+              {this.renderPrice()}
+              <br />
+              {this.renderActionSection()}
             </div>
           </div>
         </div>
+      </div>
     )
   }
 }
