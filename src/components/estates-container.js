@@ -272,6 +272,7 @@ export default class EstatesContainer extends Component {
               hideDetails={this.hideDetails.bind(this)}
               estate={this.state.selectedEstate}
               editEstate={this.editEstate.bind(this)}
+              showImages={this.showImages.bind(this)}
             /> : null
         }
 

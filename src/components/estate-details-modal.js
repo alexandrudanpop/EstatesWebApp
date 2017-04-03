@@ -10,7 +10,7 @@ export default class EstateDetailsModal extends React.Component {
 
     this.state = {
       error: null,
-      isEditing: false
+      isEditing: true
     }
   }
 
@@ -50,9 +50,9 @@ export default class EstateDetailsModal extends React.Component {
     return (
       <div>
         <h3>
-        {this.props.estate.name}
+          {this.props.estate.name}
         </h3>
-        <br/>
+        <br />
       </div>
     )
   }
@@ -73,6 +73,12 @@ export default class EstateDetailsModal extends React.Component {
         {this.props.estate.price} $
       </div>
     )
+  }
+
+  onAddImagesClick() {
+    const id = this.props.estate.id
+    this.closeModal()
+    this.props.showImages(id)
   }
 
   render() {
@@ -96,11 +102,12 @@ export default class EstateDetailsModal extends React.Component {
               <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}>
                 <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
                 Save
-                            </Button>
+              </Button>
+              <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
               <Button onClick={this.onCancelClick.bind(this)}>
                 <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
                 Cancel
-                            </Button>
+              </Button>
             </ButtonToolbar>
           </div>
         </div>
