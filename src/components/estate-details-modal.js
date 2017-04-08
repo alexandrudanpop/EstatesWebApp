@@ -1,7 +1,9 @@
 import React from 'react'
+import { Button, ButtonToolbar } from 'react-bootstrap'
+
 import styles from './modalStyles.scss'
 import commonStyles from './index.scss'
-import { Button, ButtonToolbar } from 'react-bootstrap'
+
 import EstateImageSlider from './estate-image-slider'
 
 export default class EstateDetailsModal extends React.Component {

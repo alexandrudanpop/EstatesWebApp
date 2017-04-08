@@ -60,6 +60,7 @@ export default class EstateImageModal extends React.Component {
         <div className={styles['modal-content']}>
           <span onClick={this.closeModal.bind(this)} className={styles['close']}>&times;</span>
           <h3> Add some images </h3>
+          <hr/>
           <div className={commonStyles["error"]}>
             {this.state.error}
           </div>
