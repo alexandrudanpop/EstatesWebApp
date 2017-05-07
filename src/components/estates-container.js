@@ -301,8 +301,6 @@ export default class EstatesContainer extends Component {
         <div className={styles['estateList']}>
           <EstateList
             estates={this.state.estates}
-            deleteEstate={this.deleteEstate.bind(this)}
-            cancel={this.cancel.bind(this)}
             showImages={this.showImages.bind(this)}
             showDetails={this.showDetails.bind(this)}
           />

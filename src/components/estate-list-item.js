@@ -8,7 +8,7 @@ class EstateListItem extends Component {
     super(props)
 
     this.state = {
-      isEditing: false,
+      style: {}
     }
   }
 
@@ -31,60 +31,33 @@ class EstateListItem extends Component {
     this.props.showDetails(id)
   }
 
-  renderName() {
-    if (this.state.isEditing) {
-      return (
-        <h1> <input type='text' ref='nameInput' autoFocus defaultValue={this.props.estate.name} /> </h1>
-      )
-    }
+  onItemMouseOver() {
+    this.setState({ style: { backgroundColor: "#eaf7fc" } })
+  }
 
+  onItemMouseLeave() {
+    this.setState({ style: { backgroundColor: "#fff" } })
+  }
+
+  renderName() {
     return (
       <h1> {this.props.estate.name} </h1>
     )
   }
 
   renderPrice() {
-    if (this.state.isEditing) {
-      return (
-        <div> <input type='text' ref='priceInput' defaultValue={this.props.estate.price} /> </div>
-      )
-    }
-
     return (
-      <div> {this.props.estate.price}</div>
+      <div> {this.props.estate.price.toLocaleString(
+        undefined, // use a string like 'en-US' to override browser locale
+        { minimumFractionDigits: 2 }
+      )} $ </div>
     )
   }
 
-  // todo Edit / Delete Actions - move to estate-details modal
   renderActionSection() {
-    /*if (this.state.isEditing) {
-      return (
-        <div>
-          <ButtonToolbar>
-            <Button bsStyle='success' onClick={this.onSaveClick.bind(this)}>
-              <span className='glyphicon glyphicon-ok'></span>{'\u00A0'}
-              Save
-            </Button>
-            <Button onClick={this.onCancelClick.bind(this)}>
-              <span className='glyphicon glyphicon-ban-circle'></span>{'\u00A0'}
-              Cancel
-            </Button>
-          </ButtonToolbar>
-        </div>
-      )
-    }*/
-
     return (
       <div>
         <ButtonToolbar>
-          {/*<Button bsStyle='warning' onClick={this.onEditClick.bind(this)}>
-            <span className='glyphicon glyphicon-pencil'></span>{'\u00A0'}
-            Edit
-          </Button>
-          <Button bsStyle='danger' onClick={this.onDeleteClick.bind(this)}>
-            <span className='glyphicon glyphicon-remove'></span>{'\u00A0'}
-            Delete
-          </Button>*/}
           <Button bsStyle='primary' onClick={this.onDetailsClick.bind(this)}> Details </Button>
           <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
         </ButtonToolbar>
@@ -105,9 +78,11 @@ class EstateListItem extends Component {
 
   render() {
     return (
-      <div className='col-md-3'>
+      <div className='col-md-3'
+        onMouseOver={this.onItemMouseOver.bind(this)}
+        onMouseLeave={this.onItemMouseLeave.bind(this)}>
         <div className={styles['block']}>
-          <div className={styles['thumbnail']}>
+          <div className={styles['thumbnail']} style={this.state.style}>
             {this.renderImage()}
             <div className={styles['caption']}>
               {this.renderName()}
