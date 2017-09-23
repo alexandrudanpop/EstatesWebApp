@@ -90,7 +90,6 @@ export default class EstatesContainer extends Component {
     const deleteEndpoint = endpoint + '/' + id.toString()
     axios.delete(deleteEndpoint, id)
       .then((response) => {
-        console.log(response)
         this.setState({ estates: newEstates })
       })
       .catch((error) => {
@@ -254,6 +253,29 @@ export default class EstatesContainer extends Component {
     return estate;
   }
 
+  deleteImage(id) {
+    const deleteEndpoint = api + '/api/images/' + id
+
+    axios.delete(deleteEndpoint, id)
+      .then((response) => {
+        const foundEstate = this.selectEstateById(this.state.selectedEstateId)
+        foundEstate.images = foundEstate.images.filter(i => {
+          if (i.id != id) {
+            return i
+          }
+        })
+
+        this.setState({estates: this.state.estates})
+      })
+      .catch((error) => {
+        if (error.response && error.response.data) {
+          this.setState({ errors: error.response.data })
+        } else if (error.message) {
+          this.setState({ errors: error.message })
+        }
+      })
+  }
+
   render() {
     return (
       <div>
@@ -273,6 +295,7 @@ export default class EstatesContainer extends Component {
               estate={this.state.selectedEstate}
               editEstate={this.editEstate.bind(this)}
               showImages={this.showImages.bind(this)}
+              deleteImage={this.deleteImage.bind(this)}
             /> : null
         }
 

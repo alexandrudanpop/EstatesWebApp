@@ -75,23 +75,35 @@ export default class EstateDetailsModal extends React.Component {
   }
 
   renderImageCarousel(images) {
-    if (images) {
+    if (images && images.length === 1) {
       return (
         <Carousel>
           {images.map(i => {
             return (
               <Carousel.Item key={i.id}>
                 <img width={900} height={500} alt="900x500" src={'http://' + i.link} />
-                
-                {/*todo should have some image description?*/}
-                {/*<Carousel.Caption>
-                  <h3>First slide label</h3>
-                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-                </Carousel.Caption>*/}
               </Carousel.Item>)
           })}
         </Carousel>
       )
+    }
+    else if (images && images.length > 1) {
+      return (
+        <div>
+          <Carousel>
+            {images.map(i => {
+              return (
+                <Carousel.Item key={i.id}>
+                  <img width={900} height={500} alt="900x500" src={'http://' + i.link} />
+                </Carousel.Item>)
+            })}
+          </Carousel>
+          <Button onClick={this.deleteImage.bind(this)}>Clear image &times;</Button>
+        </div>
+      )
+    }
+    else {
+      return null
     }
   }
 
@@ -99,6 +111,13 @@ export default class EstateDetailsModal extends React.Component {
     const id = this.props.estate.id
     this.closeModal()
     this.props.showImages(id)
+  }
+
+  deleteImage() {
+    const images = this.props.estate.images;
+    const imgUrl = document.getElementsByClassName('item active')[0].firstChild.src;
+    const imageId = images.filter(x => 'http://' + x.link === imgUrl)[0].id
+    this.props.deleteImage(imageId)
   }
 
   render() {
@@ -114,7 +133,6 @@ export default class EstateDetailsModal extends React.Component {
           {this.renderName()}
           {this.renderPrice()}
           {this.renderImageCarousel(this.props.estate.images)}
-
 
           <br />
           <div>
