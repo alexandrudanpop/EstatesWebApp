@@ -1,10 +1,8 @@
 import React from 'react'
-import { Button, ButtonToolbar } from 'react-bootstrap'
+import { Button, ButtonToolbar, Carousel } from 'react-bootstrap'
 
 import styles from './modalStyles.scss'
 import commonStyles from './index.scss'
-
-import EstateImageSlider from './estate-image-slider'
 
 export default class EstateDetailsModal extends React.Component {
   constructor(props) {
@@ -58,7 +56,6 @@ export default class EstateDetailsModal extends React.Component {
       </div>
     )
   }
-
   renderPrice() {
     if (this.state.isEditing) {
       return (
@@ -75,6 +72,25 @@ export default class EstateDetailsModal extends React.Component {
         {this.props.estate.price} $
       </div>
     )
+  }
+
+  renderImageCarousel(images) {
+    if (images) {
+      return (
+        <Carousel>
+          {images.map(i => {
+            return (
+              <Carousel.Item key={i.id}>
+                <img width={900} height={500} alt="900x500" src={'http://' + i.link} />
+                <Carousel.Caption>
+                  <h3>First slide label</h3>
+                  <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                </Carousel.Caption>
+              </Carousel.Item>)
+          })}
+        </Carousel>
+      )
+    }
   }
 
   onAddImagesClick() {
@@ -95,9 +111,9 @@ export default class EstateDetailsModal extends React.Component {
           <hr />
           {this.renderName()}
           {this.renderPrice()}
-          <EstateImageSlider
-            images={this.props.estate.images}
-          />
+          {this.renderImageCarousel(this.props.estate.images)}
+
+
           <br />
           <div>
             <ButtonToolbar>
