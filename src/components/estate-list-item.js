@@ -54,17 +54,6 @@ class EstateListItem extends Component {
     )
   }
 
-  renderActionSection() {
-    return (
-      <div>
-        <ButtonToolbar>
-          <Button bsStyle='primary' onClick={this.onDetailsClick.bind(this)}> Details </Button>
-          <Button bsStyle='primary' onClick={this.onAddImagesClick.bind(this)}> Add images </Button>
-        </ButtonToolbar>
-      </div>
-    )
-  }
-
   renderImage() {
     return (
       this.props.estate && this.props.estate.images.length !== 0
@@ -80,15 +69,14 @@ class EstateListItem extends Component {
     return (
       <div className='col-md-3'
         onMouseOver={this.onItemMouseOver.bind(this)}
-        onMouseLeave={this.onItemMouseLeave.bind(this)}>
+        onMouseLeave={this.onItemMouseLeave.bind(this)}
+        onClick={this.onDetailsClick.bind(this)}>
         <div className={styles['block']}>
           <div className={styles['thumbnail']} style={this.state.style}>
             {this.renderImage()}
             <div className={styles['caption']}>
               {this.renderName()}
               {this.renderPrice()}
-              <br />
-              {this.renderActionSection()}
             </div>
           </div>
         </div>
